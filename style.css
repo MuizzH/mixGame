@@ -50,41 +50,44 @@
   }
 
 
-
 h1 {
     font-size: 24px;
   }
   
+  h2{
+    color: black;
+    text-transform: uppercase;
+  }
+
   p {
     font-size: 1.6em;
+    color: black
   }
   
   h3 {
     font-weight: 400;
   }
 
-
-
 .score-panel {
     font-size: 1em;
     padding: 1em 0 2em;
   }
   
-  .star-rating > li {
+.star-rating > li {
     display: inline-block;
     padding: 0.5em;
   }
   
-  .moves-counter {
+.moves-counter {
     padding: 0.5em;
   }
   
-  .reset-btn {
+.reset-btn {
     background: #000;
     
   }
   
-  .timer-container {
+.timer-container {
     background: #fff;
     border-radius: 0.5em;
     color: #000;
@@ -92,7 +95,7 @@ h1 {
     padding: 0.5em;
   }
   
-  .timer {
+.timer {
     font-size: 1.5em;
   }
 
@@ -113,50 +116,51 @@ h1 {
   }
   
   
-  .modal-content {
+.modal-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #fff;
+    background-color: rgb(255, 255, 255);
     
     margin: 5% auto;
     border: 0.8em solid #fc4;
     padding-right: 2em;
-    width: 80%;
+    width: 50%;
   }
   
   
-  .close {
+.close {
     align-self: flex-end;
     color: #28e;
     font-size: 5em;
   }
   
-  .close:hover,
-  .close:focus {
+.close:hover,
+
+.close:focus {
     color: #5cf;
     text-decoration: none;
     cursor: pointer;
   }
   
   
-  .modal-img {
+.modal-img {
     display: inline-block;
     margin: 1em 0 1em;
     width: 20em;
   }
   
-  p.stats {
+p.stats {
     font-weight: 600;
   }
   
-  p.stats:last-child {
+p.stats:last-child {
     margin-bottom: 1em;
   }
   
-  .play-again-btn {
-    background: #28e;
+.play-again-btn {
+    background: rgb(17, 160, 196);
     margin-bottom: 1em;
   }
 
@@ -176,7 +180,7 @@ h1 {
   
   .deck,
   .card {
-    box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+    box-shadow: 5px 2px 20px 0 rgba(0, 0, 0, 0.5);
   }
   
   .card {
@@ -304,9 +308,9 @@ h1 {
     }
   }
 
-  .footer p{
+  .footer2 p{
     font-size: 20px;
-    color: white;
+    color: rgb(0, 0, 0);
     font-family:Arial, Helvetica, sans-serif;
     padding: 1px;
     text-align: center;

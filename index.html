@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muizz Game 1</title>
+    <title>Muizz Game</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
@@ -12,10 +12,11 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    
 
 </head>
 <body>
-
+  
     <div class="container">
 
         <header class="header">
@@ -69,9 +70,14 @@
 
         </section>
 
+        
+
         <ul class="deck"></ul>
 
     </div>
+
+    
+
 <!-- Audio Autoplay -->
 
     <audio controls id="music" controls autoplay>
@@ -79,292 +85,17 @@
       <source src="Worry Worry Worry - The Three Suns - Fallout 4 Soundtrack.mp3" type="audio/mpeg">
     </audio>
 
-<!-- JavaScript start-->
 
+<script src='js/script.js'></script>
 
-      <script>
-
-
-          const deckCards = ["Agility.png", "Agility.png", "Boat.png", "Boat.png", "Citizenship.png", "Citizenship.png", "Hack.png", "Hack.png", "Nerd-Rage.png", "Nerd-Rage.png", "Nuka-Cola.png", "Nuka-Cola.png", "Robotics.png", "Robotics.png", "Shock.png", "Shock.png"];
-
-        const deck = document.querySelector(".deck");
-        let opened = [];
-        let matched = [];
-        const modal = document.getElementById("modal");
-        const reset = document.querySelector(".reset-btn");
-        const playAgain = document.querySelector(".play-again-btn");
-        const movesCount = document.querySelector(".moves-counter");
-        let moves = 0;
-        const star = document.getElementById("star-rating").querySelectorAll(".star");
-        let starCount = 3;
-        const timeCounter = document.querySelector(".timer");
-        let time;
-        let minutes = 0;
-        let seconds = 0;
-        let timeStart = false;
-
-    function shuffle(array) {
-        let currentIndex = array.length, temporaryValue, randomIndex;
-  
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-    return array;
-  }
-
-  function startGame() {
-    
-    const shuffledDeck = shuffle(deckCards); 
-    
-    for (let i = 0; i < shuffledDeck.length; i++) {
-      
-      const liTag = document.createElement('LI');
-      
-      liTag.classList.add('card');
-      
-      const addImage = document.createElement("IMG");
-      
-      liTag.appendChild(addImage);
-      
-      addImage.setAttribute("src", "images/" + shuffledDeck[i]);
-      
-      addImage.setAttribute("alt", "image of vault boy from fallout");
-      
-      deck.appendChild(liTag);
-    }
-  }
-  
-  startGame();
-  
-
-  function removeCard() {
-   
-    while (deck.hasChildNodes()) {
-      deck.removeChild(deck.firstChild);
-    }
-  }
-
-  function timer() {
-    
-    time = setInterval(function() {
-      seconds++;
-        if (seconds === 60) {
-          minutes++;
-          seconds = 0;
-        }
-      
-      timeCounter.innerHTML = "<i class='fa fa-hourglass-start'></i>" + " Timer: " + minutes + " Mins " + seconds + " Secs" ;
-    }, 1000);
-  }
-
-  function stopTime() {
-    clearInterval(time);
-  }
-
-  function resetEverything() {
-    
-    stopTime();
-    timeStart = false;
-    seconds = 0;
-    minutes = 0;
-    timeCounter.innerHTML = "<i class='fa fa-hourglass-start'></i>" + " Timer: 00:00";
-    
-    star[1].firstElementChild.classList.add("fa-star");
-    star[2].firstElementChild.classList.add("fa-star");
-    starCount = 3;
-   
-    moves = 0;
-    movesCount.innerHTML = 0;
-    
-    matched = [];
-    opened = [];
-    
-    removeCard();
-    
-    startGame();
-    
-  }
-
-  function movesCounter() {
-    
-    movesCount.innerHTML ++;
-    
-    moves ++;
-  }
-
-  function starRating() {
-    if (moves === 30) {
-      
-      star[2].firstElementChild.classList.remove("fa-star");
-      starCount--;
-    }
-    if (moves === 45) {
-      star[1].firstElementChild.classList.remove("fa-star");
-      starCount--;
-    }
-  }
-  
-  function compareTwo() {
-    
-    if (opened.length === 2) {
-        
-        document.body.style.pointerEvents = "none";
-    }
-    
-    if (opened.length === 2 && opened[0].src === opened[1].src) {
-      
-      match();
-      
-    } else if (opened.length === 2 && opened[0].src != opened[1].src) {
-      
-      noMatch();
-      
-    }
-  }
-  
-  function match() {
-    
-    setTimeout(function() {
-      opened[0].parentElement.classList.add("match");
-      opened[1].parentElement.classList.add("match");
-      
-      matched.push(...opened);
-      
-      document.body.style.pointerEvents = "auto";
-      
-      winGame();
-      
-      opened = [];
-    }, 600);
-    
-    movesCounter();
-    starRating();
-  }
-
-  function noMatch() {
-    
-    setTimeout(function() {
-      
-      opened[0].parentElement.classList.remove("flip");
-      opened[1].parentElement.classList.remove("flip");
-      
-      document.body.style.pointerEvents = "auto";
-      
-      opened = [];
-    }, 700);
-    
-    movesCounter();
-    starRating();
-  }
-  
-  function AddStats() {
-    
-    const stats = document.querySelector(".modal-content");
-    
-    for (let i = 1; i <= 3; i++) {
-      
-      const statsElement = document.createElement("p");
-      
-      statsElement.classList.add("stats");
-      
-      stats.appendChild(statsElement);
-    }
-    
-    let p = stats.querySelectorAll("p.stats");
-        
-      p[0].innerHTML = "Time to complete: " + minutes + " Minutes and " + seconds + " Seconds";
-      p[1].innerHTML = "Moves: " + moves;
-      p[2].innerHTML = "Your Star Rating is: " + starCount + " out of 3";
-  }
-  
-  function displayModal() {
-  
-  const modalClose = document.getElementsByClassName("close")[0];
-    
-    modal.style.display= "block";
-  
-    
-    modalClose.onclick = function() {
-      modal.style.display = "none";
-    };
-  
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    };
-  }
-
-  function winGame() {
-    if (matched.length === 16) {
-      stopTime();
-      AddStats();
-      displayModal();
-      pause();
-    }
-  }
-  
-  deck.addEventListener("click", function(evt) {
-    if (evt.target.nodeName === "LI") {
-      
-      console.log(evt.target.nodeName + " Was clicked");
-      
-      if (timeStart === false) {
-        timeStart = true; 
-        timer();
-      }
-      
-      flipCard();
-    }
-  
-    
-    function flipCard() {
-      
-      evt.target.classList.add("flip");
-      
-      addToOpened();
-    }
-     
-    
-    function addToOpened() {
-      
-      if (opened.length === 0 || opened.length === 1) {
-        
-        opened.push(evt.target.firstElementChild);
-      }
-      
-      compareTwo();
-    }
-  });
-  
-  reset.addEventListener('click', resetEverything);
-  
-  playAgain.addEventListener('click',function() {
-    modal.style.display = "none";
-    resetEverything();
-  });
-
-var myMusic= document.getElementById("music");
-  function play() {
-  myMusic.play();
-  }
-
-  function pause() {
-  myMusic.pause();
-  }
-
-</script>
-
-<!-- JavaScript end -->
 
 </body>
 
-<div class="footer2"> <!--Footer-->
-    <p>Project Creating a game @ <a href="https://muizzh.github.io/">Muhamad Muizzuddin</a> (2021)
+<!--Footer-->
+
+<div class="footer2"> 
+  
+    <p>Mix and match @ <a href="https://muizzh.github.io/">Muhamad Muizzuddin</a> (2021)
     <a href="https://www.instagram.com/" class="fa fa-instagram"></a>
     <a href="https://www.facebook.com/MuizzHamzah" class="fa fa-facebook"></a>
     <a href="https://twitter.com/" class="fa fa-twitter"></a></p>

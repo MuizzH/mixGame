@@ -259,6 +259,7 @@ const deckCards = ["Agility.png", "Agility.png", "Boat.png", "Boat.png", "Citize
   playAgain.addEventListener('click',function() {
     modal.style.display = "none";
     resetEverything();
+    play()
   });
 
 

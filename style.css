@@ -318,3 +318,18 @@ p.stats:last-child {
     margin-right: auto;
     width: fit-content;
   }
+
+  .gamedes, p.s, ol.s1{
+    position: absolute;
+    left: 10px;
+    width: 300px;
+    height: 120px;
+    color: white;
+    text-align: left;
+    font-size: 14px;
+    padding: 1px;
+  } 
+
+
+
+

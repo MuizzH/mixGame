@@ -326,8 +326,8 @@ p.stats:last-child {
     height: 120px;
     color: white;
     text-align: left;
-    font-size: 14px;
-    padding: 1px;
+    font-size: 15px;
+    padding-top: 5px;
   } 
 
 
